@@ -2,7 +2,7 @@
 
 # website settings
 website:
-  title: "Gandalf"                                # Your name
+  title: "Australian COLOSS"                                # Your name
   description: "Gandalf is a renowned wizard and scholar of Middle-earth"   # A brief slogan (optional)
   image: img/my_image.jpg
   

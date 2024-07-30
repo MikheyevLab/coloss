@@ -11,7 +11,7 @@
     "href": "photography/index.html",
     "title": "Photography",
     "section": "",
-    "text": "As a wizard and scholar of Middle-earth, I have been studying the magic of the natural world for centuries. Through my self-portraits, I aim to capture the essence of my own being and reflect on my own journey through time. Each photograph is a reflection of my own experiences and emotions. Through my photography, I hope to offer a glimpse into my life as a scholar and adventurer, and inspire others to reflect on their own journeys through the world.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nView the tutorial for this template (+ download link)"
+    "text": "As a wizard and scholar of Middle-earth, I have been studying the magic of the natural world for centuries. Through my self-portraits, I aim to capture the essence of my own being and reflect on my own journey through time. Each photograph is a reflection of my own experiences and emotions. Through my photography, I hope to offer a glimpse into my life as a scholar and adventurer, and inspire others to reflect on their own journeys through the world.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nView the tutorial for this template (+ download link)"
   },
   {
     "objectID": "projects/index.html",
@@ -37,8 +37,15 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Welcome to my website!",
+    "title": "Australian honeybee colony loss survey",
     "section": "",
-    "text": "Twitter\n  \n  \n    \n     Github\n  \n  \n    \n     LinkedIn\n  \n  \n    \n     Email\n  \n\n\n\n\nWelcome to my website!\nI am Gandalf the White, a renowned wizard and scholar of Middle-earth. Over the centuries, I have dedicated my life to studying the history, languages, and cultures of the peoples of Middle-earth. On this website, I offer a glimpse into my vast body of knowledge, ongoing research, and publications.\nMy research interests span the entirety of Middle-earth, from the distant past to the present day. I am particularly passionate about the languages and mythologies of the Elves, Dwarves, and Men, and I have made significant contributions to the understanding of these subjects. My studies of the natural world have also been extensive, and I am an expert in the flora and fauna of Middle-earth. Additionally, I have been involved in many important historical events and offer valuable first-hand accounts and insights on the past.\nNot only am I a scholar, but I am also a mentor and teacher. Over the centuries, I have had the honor of working with many young wizards, passing on my knowledge and experience to the next generation. I have a particular interest in the education of hobbits, whom I see as having great potential despite their small size and simple lifestyle. My teaching style is engaging and accessible, and I encourage my students to think critically and creatively.\nOn this website, you will find a selection of my published works, including scholarly articles, monographs, and translations. You will also find news and updates on my current research projects, as well as information on upcoming events and conferences where I will be speaking. I invite you to explore my website and learn more about my life’s work as one of Middle-earth’s greatest scholars and thinkers. Please feel free to contact me if you have any questions or would like to discuss potential projects.\n\nView the tutorial for this template (+ download link)"
+    "text": "Twitter\n  \n  \n    \n     Github\n  \n  \n    \n     LinkedIn\n  \n  \n    \n     Email"
+  },
+  {
+    "objectID": "index.html#colony-losses-not-real-data",
+    "href": "index.html#colony-losses-not-real-data",
+    "title": "Australian honeybee colony loss survey",
+    "section": "2024 colony losses (not real data)",
+    "text": "2024 colony losses (not real data)\n\nCodelibrary(sf)\nlibrary(ggplot2)\nlibrary(ggiraph)\n\n# Load the shapefile\naus_shp &lt;- st_read(\"../STE_2021_AUST_GDA2020.shx\", quiet = T)[1:8,] # remove islands\n\n# Simplify geometries with a lower tolerance and keep empty shapes\naus_shp_simplified &lt;- st_simplify(aus_shp, dTolerance = 8000, preserveTopology = TRUE)\n\n# Ensure geometries are valid\naus_shp_simplified &lt;- st_make_valid(aus_shp_simplified)\n\n# Remove empty geometries\naus_shp_simplified &lt;- aus_shp_simplified[!st_is_empty(aus_shp_simplified), ]\n# Generate random numbers between 1 and 100 for each state\nset.seed(123)  # For reproducibility\naus_shp_simplified$`2024 colony losses` &lt;- sample(1:20, nrow(aus_shp_simplified), replace = TRUE)\n\n# Create ggplot object with interactive elements\np &lt;- ggplot(aus_shp_simplified) +\n  geom_sf_interactive(aes(fill = `2024 colony losses`, tooltip = `2024 colony losses`, data_id = `2024 colony losses`)) +\n  scale_fill_viridis_c() +\n  theme_minimal() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),   axis.text = element_blank())\n\n# Render the interactive plot\ngirafe(\n  ggobj = p,\n  options = list(\n    opts_hover(css = \"fill:orange;\"),\n    opts_hover_inv(css = \"opacity:0.5;\"),\n    opts_selection(type = \"single\", only_shiny = FALSE),\n    opts_tooltip(css = \"font-size: 20px;\") \n  )\n)"
   }
 ]
