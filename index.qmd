@@ -21,6 +21,7 @@ about:
     - icon: envelope
       text: Email
       href: "mailto:mail.marvinschmitt@gmail.com"  
+engine: knitr      
 ---
 
 ::: {#about-block}
@@ -30,14 +31,20 @@ about:
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat ullamcorper nullam ac donec volutpat erat amet tempus quam cubilia egestas torquent nisi mollis lacus. Sagittis urna fringilla himenaeos est nec curabitur iaculis nisl risus amet accumsan venenatis nulla. Orci accumsan hendrerit lacus litora cras placerat et ad ligula tellus platea. Viverra interdum gravida et condimentum quis placerat integer fusce.
 
+
+
+## Graphics
+
 Sem iaculis porttitor pellentesque libero cras porttitor tellus ac. Ligula hendrerit praesent enim felis justo eros varius consectetur molestie. Justo suspendisse habitant nunc finibus nam.
 Eleifend ad lacinia curabitur taciti amet nisl sodales suspendisse orci consectetur senectus. Eleifend convallis maximus vivamus est condimentum porta est litora litora nunc fringilla maecenas non dui. Duis diam inceptos pharetra habitasse elit nibh eget scelerisque eleifend volutpat ad venenatis tempor iaculis mollis.
 
-Praesent ac integer mi eros odio etiam donec congue pellentesque scelerisque accumsan ultricies. Sodales phasellus senectus metus duis tellus ad tellus auctor congue quam litora quam euismod donec faucibus.
 
-## 2024 colony losses (not real data)
+# Colony losses (not real data)
+
+
 ```{r message=F}
-
+#| layout-ncol: 2
+ 
 library(sf)
 library(ggplot2)
 library(ggiraph)
@@ -56,12 +63,21 @@ aus_shp_simplified <- aus_shp_simplified[!st_is_empty(aus_shp_simplified), ]
 # Generate random numbers between 1 and 100 for each state
 set.seed(123)  # For reproducibility
 aus_shp_simplified$`2024 colony losses` <- sample(1:20, nrow(aus_shp_simplified), replace = TRUE)
+years <- 2020:2024
+states <- c("New South Wales", "Victoria", "Queensland", "South Australia", "Western Australia", "Tasmania", "Northern Territory", "Australian Capital Territory")
+n_states <- length(states)
+colony_losses <- data.frame(
+  state = rep(states, each = length(years)),
+  year = rep(years, times = n_states),
+  losses = sample(1:20, n_states * length(years), replace = TRUE)
+)
+
 
 # Create ggplot object with interactive elements
 p <- ggplot(aus_shp_simplified) +
   geom_sf_interactive(aes(fill = `2024 colony losses`, tooltip = `2024 colony losses`, data_id = `2024 colony losses`)) +
   scale_fill_viridis_c() +
-  theme_minimal() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),   axis.text = element_blank())
+  theme_minimal() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),   axis.text = element_blank()) + labs(title = "2024 winter losses") + guides(fill = guide_legend(title = NULL)) 
 
 # Render the interactive plot
 girafe(
@@ -74,5 +90,28 @@ girafe(
   )
 )
 
-```
+p_line <- ggplot(colony_losses, aes(x = year, y = losses, color = state, group = state)) +
+  geom_line_interactive(aes(tooltip = paste(state, year, losses, sep = ": "), data_id = state)) +
+  geom_point_interactive(aes(tooltip = paste(state, year, losses, sep = ": "), data_id = state)) +
+  theme_minimal() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(size = 12),
+    axis.title = element_text(size = 14),
+    legend.position = "bottom" 
+  ) +
+  labs(title = "Losses over 5 years", x = "Year", y = "Colony Losses") + 
+  guides(color = guide_legend(title = NULL)) 
 
+girafe(
+  ggobj = p_line,
+  options = list(
+    opts_hover(css = "stroke-width:2;"),
+    opts_hover_inv(css = "opacity:0.5;"),
+    opts_selection(type = "single", only_shiny = FALSE),
+    opts_tooltip(css = "font-size: 12px;")
+  )
+)
+
+```
