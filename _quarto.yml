@@ -2,8 +2,8 @@
 
 # website settings
 website:
-  title: "Australian COLOSS"                                # Your name
-  description: "Gandalf is a renowned wizard and scholar of Middle-earth"   # A brief slogan (optional)
+  title: "Australian honey bee colony loss survey"                                # Your name
+  description: "Dummy page for the Australian honey bee colony loss survey"   # A brief slogan (optional)
   image: img/my_image.jpg
   
   favicon: img/favicon.png
@@ -15,24 +15,17 @@ website:
     
     # your sub-pages
     left:
-      - text: "Projects"
-        href: projects/index.qmd
-      - text: "Photography"
-        href: photography/index.qmd
-      - text: "CV"
-        href: cv/index.qmd
+      - text: "Take the survey!"
+        href: "https://survey.landcareresearch.co.nz/jfe/form/SV_0cQvadN6lpDiHfo"
     
     # your social media handles
     right:
-      - icon: folder-symlink
-        href: https://www.marvinschmitt.com/blog/website-tutorial-quarto/
+
       - icon: twitter
-        href: https://twitter.com/MarvinSchmittML
-      - icon: linkedin
-        href: https://www.linkedin.com/in/marvin-schmitt-a85b321a2/
+        href: https://x.com/sashamikheyev
       - icon: envelope
         aria-label: email
-        href: "mailto:mail.marvinschmitt@gmail.com"  
+        href: "mailto:alexander.mikheyev@anu.edu.au"  
   
   
 
@@ -42,11 +35,11 @@ website:
     type: textbox
   page-footer: 
     left: |
-      <span class="faux-block">&#169; 2023 Marvin Schmitt CC BY-SA 4.0</span>
+      <span class="faux-block">&#169; 2024 Australian Colony Loss Survey CC BY-SA 4.0</span>
     center: |
-      <span class="faux-block"><a href="https://www.marvinschmitt.com/blog/website-tutorial-quarto/">View the tutorial for this template!</a></span>
+      <span class="faux-block"><a href="https://survey.landcareresearch.co.nz/jfe/form/SV_0cQvadN6lpDiHfo">Take the survet!</a></span>
     right: |
-      <span class="faux-block"><a href="https://github.com/marvinschmitt/quarto-website-template/">View source on GitHub</a></span>
+      <span class="faux-block"><a href="https://github.com/mikheyevlab/coloss">View source on GitHub</a></span>
 
 project:
   type: website

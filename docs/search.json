@@ -37,9 +37,9 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Australian honeybee colony loss survey",
+    "title": "Australian honey bee colony loss survey",
     "section": "",
-    "text": "Twitter\n  \n  \n    \n     Github\n  \n  \n    \n     LinkedIn\n  \n  \n    \n     Email"
+    "text": "Twitter\n  \n  \n    \n     Github\n  \n  \n    \n     Email\nThis is a placeholder webpage that illustrates data visualisation and communication capability. Simulated results shown below are analysed on a local computer and rendered as a static HTML that can be uploaded to any web server, or even embedded inside other web pages.\nThe code repository hosted on GitHub necessary to conduct the analysis, generate the images and render the website will be a key derivable at the end of the project. AgriFutures can continue to host the website for free on GitHub using a custom domain name.\nThe website will also host a link to the survey (see header above for an example of a fully-functional survey based on the current New Zealand colony loss survey)"
   },
   {
     "objectID": "index.html#colony-losses-not-real-data",
@@ -65,8 +65,15 @@
   {
     "objectID": "index.html#graphics",
     "href": "index.html#graphics",
-    "title": "Australian honeybee colony loss survey",
+    "title": "Australian honey bee colony loss survey",
     "section": "Graphics",
-    "text": "Graphics\nSem iaculis porttitor pellentesque libero cras porttitor tellus ac. Ligula hendrerit praesent enim felis justo eros varius consectetur molestie. Justo suspendisse habitant nunc finibus nam. Eleifend ad lacinia curabitur taciti amet nisl sodales suspendisse orci consectetur senectus. Eleifend convallis maximus vivamus est condimentum porta est litora litora nunc fringilla maecenas non dui. Duis diam inceptos pharetra habitasse elit nibh eget scelerisque eleifend volutpat ad venenatis tempor iaculis mollis."
+    "text": "Graphics\nThe graphics below use simulated data to show analytical and display capabilities. The “Code” would not usually be visible, but shows and exampla pipeline going from data simulation to display. These images are interactive using JavaScript capabilities of modern browsers – the code has already been run offline.\nCodelibrary(sf)\nlibrary(ggplot2)\nlibrary(ggiraph)\n\n# Load the shapefile\naus_shp &lt;- st_read(\"../STE_2021_AUST_GDA2020.shx\", quiet = T)[1:8,] # remove islands\n\n# Simplify geometries with a lower tolerance and keep empty shapes\naus_shp_simplified &lt;- st_simplify(aus_shp, dTolerance = 8000, preserveTopology = TRUE)\n\n# Ensure geometries are valid\naus_shp_simplified &lt;- st_make_valid(aus_shp_simplified)\n\n# Remove empty geometries\naus_shp_simplified &lt;- aus_shp_simplified[!st_is_empty(aus_shp_simplified), ]\n# Generate random numbers between 1 and 100 for each state\nset.seed(123)  # For reproducibility\naus_shp_simplified$`2024 colony losses` &lt;- sample(1:20, nrow(aus_shp_simplified), replace = TRUE)\nyears &lt;- 2020:2024\nstates &lt;- c(\"New South Wales\", \"Victoria\", \"Queensland\", \"South Australia\", \"Western Australia\", \"Tasmania\", \"Northern Territory\", \"Australian Capital Territory\")\nn_states &lt;- length(states)\ncolony_losses &lt;- data.frame(\n  state = rep(states, each = length(years)),\n  year = rep(years, times = n_states),\n  losses = sample(1:20, n_states * length(years), replace = TRUE)\n)\n\n\n# Create ggplot object with interactive elements\np &lt;- ggplot(aus_shp_simplified) +\n  geom_sf_interactive(aes(fill = `2024 colony losses`, tooltip = `2024 colony losses`, data_id = `2024 colony losses`)) +\n  scale_fill_viridis_c() +\n  theme_minimal() + theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),   axis.text = element_blank()) + labs(title = \"2024 winter losses\") + guides(fill = guide_legend(title = NULL)) \n\n# Render the interactive plot\ngirafe(\n  ggobj = p,\n  options = list(\n    opts_hover(css = \"fill:orange;\"),\n    opts_hover_inv(css = \"opacity:0.5;\"),\n    opts_selection(type = \"single\", only_shiny = FALSE),\n    opts_tooltip(css = \"font-size: 20px;\") \n  )\n)\np_line &lt;- ggplot(colony_losses, aes(x = year, y = losses, color = state, group = state)) +\n  geom_line_interactive(aes(tooltip = paste(state, year, losses, sep = \": \"), data_id = state)) +\n  geom_point_interactive(aes(tooltip = paste(state, year, losses, sep = \": \"), data_id = state)) +\n  theme_minimal() +\n  theme(\n    panel.grid.major = element_blank(),\n    panel.grid.minor = element_blank(),\n    axis.text = element_text(size = 12),\n    axis.title = element_text(size = 14),\n    legend.position = \"bottom\" \n  ) +\n  labs(title = \"Losses over 5 years\", x = \"Year\", y = \"Colony Losses\") + \n  guides(color = guide_legend(title = NULL)) \n\ngirafe(\n  ggobj = p_line,\n  options = list(\n    opts_hover(css = \"stroke-width:2;\"),\n    opts_hover_inv(css = \"opacity:0.5;\"),\n    opts_selection(type = \"single\", only_shiny = FALSE),\n    opts_tooltip(css = \"font-size: 12px;\")\n  )\n)"
+  },
+  {
+    "objectID": "index.html#web-base-design-ac",
+    "href": "index.html#web-base-design-ac",
+    "title": "Australian honey bee colony loss survey",
+    "section": "Web base design ac",
+    "text": "Web base design ac"
   }
 ]

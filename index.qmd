@@ -7,42 +7,35 @@ format:
 about:
   template: jolla
   id: about-block
-  image: "img/my_image.png"
+  image-shape: rectangle
+  image: "img/logo.png"
   links:
     - icon: twitter
       text: Twitter
-      href: https://twitter.com/MarvinSchmittML
+      href: https://x.com/sashamikheyev
     - icon: github
       text: Github
-      href: https://github.com/marvinschmitt
-    - icon: linkedin
-      text: LinkedIn
-      href: https://www.linkedin.com/in/marvin-schmitt-a85b321a2/
+      href: https://github.com/mikheyevlab/coloss
     - icon: envelope
       text: Email
-      href: "mailto:mail.marvinschmitt@gmail.com"  
+      href: "mailto:alexander.mikheyev@anu.edu.au"  
 engine: knitr      
 ---
 
 ::: {#about-block}
 :::
 
-# Australian honeybee colony loss survey
+This is a placeholder webpage that illustrates data visualisation and communication capability. Simulated results shown below are analysed on a local computer and rendered as a static HTML that can be uploaded to any web server, or even embedded inside other web pages. 
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Feugiat ullamcorper nullam ac donec volutpat erat amet tempus quam cubilia egestas torquent nisi mollis lacus. Sagittis urna fringilla himenaeos est nec curabitur iaculis nisl risus amet accumsan venenatis nulla. Orci accumsan hendrerit lacus litora cras placerat et ad ligula tellus platea. Viverra interdum gravida et condimentum quis placerat integer fusce.
+The code repository hosted on GitHub necessary to conduct the analysis, generate the images and render the website will be a key derivable at the end of the project. AgriFutures can continue to host the website for free on GitHub using a custom domain name or transfer it to another server. 
 
-
+**The website will also host a link to the survey (see header above for an example of a fully-functional survey based .on the current New Zealand colony loss survey).**
 
 ## Graphics
 
-Sem iaculis porttitor pellentesque libero cras porttitor tellus ac. Ligula hendrerit praesent enim felis justo eros varius consectetur molestie. Justo suspendisse habitant nunc finibus nam.
-Eleifend ad lacinia curabitur taciti amet nisl sodales suspendisse orci consectetur senectus. Eleifend convallis maximus vivamus est condimentum porta est litora litora nunc fringilla maecenas non dui. Duis diam inceptos pharetra habitasse elit nibh eget scelerisque eleifend volutpat ad venenatis tempor iaculis mollis.
+The graphics below use simulated data to show analytical and display capabilities. The "Code" would not usually be visible, but shows and exampla pipeline going from data simulation to display. These images are interactive using JavaScript capabilities of modern browsers -- the code has already been run offline.
 
-
-# Colony losses (not real data)
-
-
-```{r message=F}
+```{r message=F, cache = T}
 #| layout-ncol: 2
  
 library(sf)
